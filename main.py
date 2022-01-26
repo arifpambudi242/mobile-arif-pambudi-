@@ -54,6 +54,91 @@ listOfIds = ['0001', '0003']
 
 result = [bankcode for bankcode in listofBankCode if bankcode['id'] in listOfIds]
 
-print(result)
+# print(result)
 
 
+'''
+Problem 4
+========
+'''
+
+# Given 2 inputs, list of users
+userList = [
+	{ 'user_id': 1, 'email': 'test@test.com' },
+    { 'user_id': 2, 'email': 'test2@test.com' }
+]
+
+# And list of products
+buyerList = [
+	{ 'buyer': 1, 'name': 'iPhone', 'price': 21000000 },
+    { 'buyer': 1, 'name': 'Samsung', 'price': 14000000 }
+]
+
+'''Assume list of users and list of products might be very large
+
+Return list of products with user mapped as buyer, example result would be:
+
+[
+	{
+'buyer': {
+'user_id': 1,
+'email': 'test@test.com'
+},
+'name': 'iPhone',
+'price': 21000000
+},
+. . .
+]
+'''
+
+result = [{'buyer' : user, 'name' : product['name'], 'price' : product['price']} for user, product in zip(userList, buyerList) if product['buyer'] == user['user_id']]
+# print(result)
+
+
+listParentandChild = [
+	{ 'id': '001', 'title': 'Label 01', 'parent': None, 'children': ['002', '003'] },
+	{ 'id': '002', 'title': 'Label 02', 'parent': '001', 'children': ['004'] },
+	{ 'id': '003', 'title': 'Label 03', 'parent': '001', 'children': [] },
+	{ 'id': '004', 'title': 'Label 04', 'parent': '002', 'children': [] },
+	{ 'id': '005', 'title': 'Label 05', 'parent': None, 'children': [] }
+]
+
+parents = []
+child = []
+for parent in listParentandChild:
+    if parent['parent'] != None:
+        parent.append({
+            'id' : 
+        })
+
+
+'''
+[
+	{
+		id: “001”,
+	title: “Label 01”,
+	children: [
+	{
+	id: “002”,
+	title: “Label 02”,
+	children: [
+	{
+	id: “004”,
+	title: “Label 004”,
+	children : []
+}
+]
+},
+{
+	id: “003”,
+	title: “Label 03”,
+	children: []
+}
+]
+},
+{
+	id: “005”,
+	title: “Label 05”,
+	children: []
+},
+'''
