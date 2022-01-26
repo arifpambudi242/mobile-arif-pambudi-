@@ -116,12 +116,12 @@ class App:
 app = App()
 
 # answer of problem 1
-app.undeleted(givenList)
+print(app.undeleted(givenList))
 # answer of problem 2
-app.bankSelector(givenObject, listOfBanks)
+print(app.bankSelector(givenObject, listOfBanks))
 # answer of problem 3
-app.bankSelectorbyCode(listOfIds, listofBankCode)
+print(app.bankSelectorbyCode(listOfIds, listofBankCode))
 # answer of problem 4
-app.buyerMapper(userList, buyerList)
+print(app.buyerMapper(userList, buyerList))
 # answer of problem 5
-app.parentChildTree(listParentandChild)
+print(app.parentChildTree(listParentandChild))
