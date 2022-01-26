@@ -1,14 +1,11 @@
-# # problem 1
-# givenList = [
-# 	{ 'id': '0001', 'deleted': True },
-# 	{ 'id': '0002', 'deleted': False },
-#     { 'id': '0003', 'deleted': False },
-#     { 'id': '0004', 'deleted': False }
-# ]
-
-# # answer
-# result = [id['id'] for id in givenList if not id['deleted']]
-
+import json
+# problem 1
+givenList = [
+	{ 'id': '0001', 'deleted': True },
+	{ 'id': '0002', 'deleted': False },
+    { 'id': '0003', 'deleted': False },
+    { 'id': '0004', 'deleted': False }
+]
 
 # problem 2
 
@@ -17,8 +14,6 @@ givenObject = {
     'VALUE_2': False,
     'VALUE_3': True
 }
-
-# And list of banks, eg:
 
 listOfBanks = [
 	{ 'id': 'VALUE_1', 'color': '#32a852', 'label': 'Permata' },
@@ -31,15 +26,6 @@ Return list of banks that only has id in selection is True, in the example input
 '''
 
 
-# Answer
-selectedBanks = [bank for val , bank in zip(givenObject, listOfBanks) if givenObject[val]]
-# print(selectedBanks)
-
-# for val , bank in zip(givenObject, listOfBanks):
-
-
-
-
 # problem 3
 
 listofBankCode = [
@@ -50,17 +36,9 @@ listofBankCode = [
 
 listOfIds = ['0001', '0003']
 
-# answer
-
-result = [bankcode for bankcode in listofBankCode if bankcode['id'] in listOfIds]
-
-# print(result)
 
 
-'''
-Problem 4
-========
-'''
+# Problem 4
 
 # Given 2 inputs, list of users
 userList = [
@@ -74,25 +52,9 @@ buyerList = [
     { 'buyer': 1, 'name': 'Samsung', 'price': 14000000 }
 ]
 
-'''Assume list of users and list of products might be very large
 
-Return list of products with user mapped as buyer, example result would be:
 
-[
-	{
-'buyer': {
-'user_id': 1,
-'email': 'test@test.com'
-},
-'name': 'iPhone',
-'price': 21000000
-},
-. . .
-]
-'''
-
-result = [{'buyer' : user, 'name' : product['name'], 'price' : product['price']} for user, product in zip(userList, buyerList) if product['buyer'] == user['user_id']]
-# print(result)
+# list parent
 
 
 listParentandChild = [
@@ -103,42 +65,63 @@ listParentandChild = [
 	{ 'id': '005', 'title': 'Label 05', 'parent': None, 'children': [] }
 ]
 
-parents = []
-child = []
-for parent in listParentandChild:
-    if parent['parent'] != None:
-        parent.append({
-            'id' : 
-        })
 
 
-'''
-[
-	{
-		id: “001”,
-	title: “Label 01”,
-	children: [
-	{
-	id: “002”,
-	title: “Label 02”,
-	children: [
-	{
-	id: “004”,
-	title: “Label 004”,
-	children : []
-}
-]
-},
-{
-	id: “003”,
-	title: “Label 03”,
-	children: []
-}
-]
-},
-{
-	id: “005”,
-	title: “Label 05”,
-	children: []
-},
-'''
+class App:
+    def __init__(self):
+        pass
+    
+    # problem 1 answer
+    def undeleted(self, givenList):
+        return [id['id'] for id in givenList if not id['deleted']]
+    
+    # problem 2 answer
+    def bankSelector(self, givenObject, listOfBanks):
+        return [bank for val , bank in zip(givenObject, listOfBanks) if givenObject[val]]
+    
+    # problem 3 answer
+    def bankSelectorbyCode(self, listOfIds, listofBankCode):
+        return [bankcode for bankcode in listofBankCode if bankcode['id'] in listOfIds]
+    
+    # problem 4 answer
+    def buyerMapper(self, userList, buyerList):
+        return [{'buyer' : user, 'name' : product['name'], 'price' : product['price']} for user, product in zip(userList, buyerList) if product['buyer'] == user['user_id']]
+    
+    # problem 5 answer
+    def getObjById(self, id, obj):
+        return [ob for ob in obj if ob['id'] == id][0]
+      
+    def parentChildTree(self, obj):
+        result = obj.copy()
+        for ob, res in zip(obj, result):
+            if ob['children'] != []:
+                childs = ob['children'].copy()
+                for ind, child in enumerate(childs):
+                    res['children'][ind] = self.getObjById(child, obj)
+
+        finalresult = []
+        for ind, res in enumerate(result):
+            if res['parent'] == None:
+                finalresult.append(result[ind])
+        
+        return finalresult
+            
+
+
+                        
+
+
+
+
+app = App()
+
+# answer of problem 1
+app.undeleted(givenList)
+# answer of problem 2
+app.bankSelector(givenObject, listOfBanks)
+# answer of problem 3
+app.bankSelectorbyCode(listOfIds, listofBankCode)
+# answer of problem 4
+app.buyerMapper(userList, buyerList)
+# answer of problem 5
+app.parentChildTree(listParentandChild)
