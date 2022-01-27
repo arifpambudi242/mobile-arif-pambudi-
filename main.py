@@ -105,16 +105,13 @@ class App:
     
     # problem 5 answer   
     def parentChildTree(self, obj):
-        objCopy = obj.copy()
         objwithkey = {}
         for o in obj:
             objwithkey[o['id']] = o
-        for ob, res in zip(obj, objCopy):
-            if ob['children'] != []:
-                childs = ob['children'].copy()
-                for ind, child in enumerate(childs):
-                    res['children'][ind] = objwithkey[child]
-        return [parent for parent in objCopy if parent['parent'] == None]
+        for ob in obj:
+            for ind, child in enumerate(ob['children'].copy()):
+                ob['children'][ind] = objwithkey[child]
+        return [parent for parent in obj if parent['parent'] == None]
 
 
 
