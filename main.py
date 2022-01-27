@@ -77,11 +77,6 @@ class App:
     
     # problem 2 answer
     def bankSelector(self, givenObject, listOfBanks):
-        # banks = [] 
-        # for bank in listOfBanks:
-        #     if bank['id'] in givenObject:
-        #         if givenObject[bank['id']]:
-        #             banks.append(bank)
         return [bank for bank in listOfBanks if givenObject.get(bank['id'])]
     
     # problem 3 answer
@@ -93,25 +88,21 @@ class App:
         usermap = {}
         for user in userList:
             usermap[user['user_id']] = user
-        buyerandProductList = []
-        for buyer in buyerList:
-            buyerandProductList.append({
+        return [{
                 'buyer' : usermap.get(buyer['buyer']),
                 'name' : buyer['name'],
                 'price' : buyer['price'],
-            })
-
-        return buyerandProductList
+            } for buyer in buyerList]
     
     # problem 5 answer   
-    def parentChildTree(self, obj):
-        objwithkey = {}
-        for o in obj:
-            objwithkey[o['id']] = o
-        for ob in obj:
+    def parentChildTree(self, parchilds):
+        parchildsobj = {}
+        for o in parchilds:
+            parchildsobj[o['id']] = o
+        for ob in parchilds:
             for ind, child in enumerate(ob['children'].copy()):
-                ob['children'][ind] = objwithkey[child]
-        return [parent for parent in obj if parent['parent'] == None]
+                ob['children'][ind] = parchildsobj.get(child)
+        return [parent for parent in parchilds if parent['parent'] == None]
 
 
 
