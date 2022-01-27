@@ -77,7 +77,12 @@ class App:
     
     # problem 2 answer
     def bankSelector(self, givenObject, listOfBanks):
-        return [bank for val , bank in zip(givenObject, listOfBanks) if givenObject[val]]
+        # banks = [] 
+        # for bank in listOfBanks:
+        #     if bank['id'] in givenObject:
+        #         if givenObject[bank['id']]:
+        #             banks.append(bank)
+        return [bank for bank in listOfBanks if givenObject.get(bank['id'])]
     
     # problem 3 answer
     def bankSelectorbyCode(self, listOfIds, listofBankCode):
@@ -85,27 +90,32 @@ class App:
     
     # problem 4 answer
     def buyerMapper(self, userList, buyerList):
-        return [{'buyer' : user, 'name' : product['name'], 'price' : product['price']} for user, product in zip(userList, buyerList) if product['buyer'] == user['user_id']]
+        usermap = {}
+        for user in userList:
+            usermap[user['user_id']] = user
+        buyerandProductList = []
+        for buyer in buyerList:
+            buyerandProductList.append({
+                'buyer' : usermap.get(buyer['buyer']),
+                'name' : buyer['name'],
+                'price' : buyer['price'],
+            })
+
+        return buyerandProductList
     
-    # problem 5 answer
-    def getObjById(self, id, obj):
-        return [ob for ob in obj if ob['id'] == id][0]
-      
+    # problem 5 answer   
     def parentChildTree(self, obj):
-        result = obj.copy()
-        for ob, res in zip(obj, result):
+        objCopy = obj.copy()
+        objwithkey = {}
+        for o in obj:
+            objwithkey[o['id']] = o
+        for ob, res in zip(obj, objCopy):
             if ob['children'] != []:
                 childs = ob['children'].copy()
                 for ind, child in enumerate(childs):
-                    res['children'][ind] = self.getObjById(child, obj)
+                    res['children'][ind] = objwithkey[child]
+        return [parent for parent in objCopy if parent['parent'] == None]
 
-        finalresult = []
-        for ind, res in enumerate(result):
-            if res['parent'] == None:
-                finalresult.append(result[ind])
-        
-        return finalresult
-            
 
 
                         
